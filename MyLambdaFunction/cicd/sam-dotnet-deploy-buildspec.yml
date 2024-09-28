@@ -3,7 +3,8 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - cd ${TARGET_DIR}
+      - cd MyLambdaFunction/src/MyLambdaFunction
+      - pwd
   build:
     commands:
       - |
