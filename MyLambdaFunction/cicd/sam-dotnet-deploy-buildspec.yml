@@ -18,5 +18,6 @@ phases:
           --no-fail-on-empty-changeset \
           --config-env ${ENVIRONMENT} \
           --parameter-overrides \
+          --resolve-s3 \
             Environment=${ENVIRONMENT}
 
