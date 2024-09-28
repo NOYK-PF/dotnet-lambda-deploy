@@ -5,6 +5,8 @@ phases:
     commands:
       - cd MyLambdaFunction/src/MyLambdaFunction
       - pwd
+      - echo ${STACK_NAME}
+      - echo ${ENVIRONMENT}
   build:
     commands:
       - |
@@ -14,9 +16,9 @@ phases:
     commands:
       - |
         sam deploy --stack-name ${STACK_NAME} \
-          --parameter-overrides Environment=${ENVIRONMENT} \
           --no-confirm-changeset \
           --no-fail-on-empty-changeset \
           --config-env ${ENVIRONMENT} \
-          --resolve-s3 
+          --resolve-s3 \
+          --parameter-overrides Environment=${ENVIRONMENT}
 
