@@ -13,11 +13,10 @@ phases:
   post_build:
     commands:
       - |
-        sam deploy --stack-name ${STAKE_NAME} \
+        sam deploy --stack-name ${STACK_NAME} \
+          --parameter-overrides Environment=${ENVIRONMENT} \
           --no-confirm-changeset \
           --no-fail-on-empty-changeset \
           --config-env ${ENVIRONMENT} \
-          --parameter-overrides \
-          --resolve-s3 \
-            Environment=${ENVIRONMENT}
+          --resolve-s3 
 
