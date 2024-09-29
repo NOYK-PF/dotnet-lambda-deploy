@@ -19,5 +19,6 @@ phases:
           --no-confirm-changeset \
           --no-fail-on-empty-changeset \
           --config-env ${ENVIRONMENT} \
+          --s3-bucket ${S3_BUCKET} \
           --parameter-overrides Environment=${ENVIRONMENT}
 
