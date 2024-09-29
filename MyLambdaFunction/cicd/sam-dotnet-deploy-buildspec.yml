@@ -18,7 +18,5 @@ phases:
         sam deploy --stack-name ${STACK_NAME} \
           --no-confirm-changeset \
           --no-fail-on-empty-changeset \
-          --config-env ${ENVIRONMENT} \
-          --resolve-s3 \
-          --parameter-overrides Environment=${ENVIRONMENT}
+          --config-env ${ENVIRONMENT}
 
