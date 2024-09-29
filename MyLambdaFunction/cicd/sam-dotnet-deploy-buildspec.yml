@@ -18,5 +18,6 @@ phases:
         sam deploy --stack-name ${STACK_NAME} \
           --no-confirm-changeset \
           --no-fail-on-empty-changeset \
-          --config-env ${ENVIRONMENT}
+          --config-env ${ENVIRONMENT} \
+          --parameter-overrides Environment=${ENVIRONMENT}
 
