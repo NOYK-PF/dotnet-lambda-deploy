@@ -13,23 +13,12 @@ public class Function
     {
         try
         {
-            using (var logger = new MetricsLogger()) {
-                // 名前空間を設定
-                logger.SetNamespace("Canary");
-                var dimensionSet = new DimensionSet();
-                
-                // ディメンション（ラベル）を設定
-                dimensionSet.AddDimension("Service", "aggregator");
-                logger.SetDimensions(dimensionSet);
-
-                // メトリクスを記録
-                logger.PutMetric("ProcessingLatency", 100, Unit.MILLISECONDS,StorageResolution.STANDARD);
-                logger.PutMetric("Memory.HeapUsed", 1600424.0, Unit.BYTES, StorageResolution.STANDARD);
-                logger.PutProperty("RequestId", "test-request-id");
-
-                // メトリクスを送信
-                logger.Flush();
-            }
+            SendMetrics("Service", "aggregator1", "ProcessingLatency1", 100, Unit.MILLISECONDS);
+            SendMetrics("Service", "aggregator1", "ProcessingLatency2", 90.55, Unit.MILLISECONDS);
+            SendMetrics("Service", "aggregator1", "Memory.HeapUsed", 1600424.0, Unit.BYTES);
+            SendMetrics("Service", "aggregator2", "Memory.HeapUsage", 0.76, Unit.PERCENT);
+            SendMetrics("Service", "aggregator2", "Memory.NonHeapUsed", 1600424.0, Unit.BYTES);
+            SendMetrics("SQLQuery", "table1_Column", "1", 3, Unit.COUNT);
 
             context.Logger.LogLine($"Metrics sent successfully.");
         }
@@ -37,6 +26,26 @@ public class Function
         {
             context.Logger.LogLine($"Error sending metrics: {ex.Message}");
             throw;
+        }
+    }
+
+    private void SendMetrics(string dimensionName, string metricsName, string metricsKey, double value, Unit unit)
+    {
+        using (var logger = new MetricsLogger())
+        {
+            // 名前空間を設定
+            logger.SetNamespace("Canary");
+            var dimensionSet = new DimensionSet();
+
+            // ディメンション（ラベル）を設定
+            dimensionSet.AddDimension(dimensionName, metricsName);
+            logger.SetDimensions(dimensionSet);
+
+            // メトリクスを記録
+            logger.PutMetric(metricsKey, value, unit, StorageResolution.STANDARD);
+
+            // メトリクスを送信
+            logger.Flush();
         }
     }
 }
