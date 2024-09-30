@@ -38,7 +38,9 @@ public class Function
             var dimensionSet = new DimensionSet();
 
             // ディメンション（ラベル）を設定
-            dimensionSet.AddDimension(dimensionName, metricsName);
+            dimensionSet.AddDimension("Service", dimensionName);
+            dimensionSet.AddDimension("Function", metricsName);
+            dimensionSet.AddDimension("Environment", "staging");
             logger.SetDimensions(dimensionSet);
 
             // メトリクスを記録
